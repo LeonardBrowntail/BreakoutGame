@@ -60,11 +60,11 @@ public class Ball {
         rect.right = x + ballWidth;
     }
 
-    public void reset(int x, int y){
-        rect.left = x / 2;
-        rect.top = y - 20;
-        rect.right = x / 2 + ballWidth;
-        rect.bottom = y - 20 - ballHeight;
+    public void reset(int x, int y, int z){
+        rect.left = x + z/2;
+        rect.top = y;
+        rect.right = rect.left + ballWidth;
+        rect.bottom = y - ballHeight;
     }
 
 }

@@ -125,7 +125,7 @@ public class BreakoutGame extends Activity {
             ball = new Ball(screenX, screenY);
             // Load the sounds
 
-// This SoundPool is deprecated but don't worry
+            // This SoundPool is deprecated but don't worry
             soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
 
             try{
@@ -159,8 +159,11 @@ public class BreakoutGame extends Activity {
 
         public void createBricksAndRestart(){
 
+            // Put the paddle back to the start
+            paddle = new Paddle(screenX, screenY);
+
             // Put the ball back to the start
-            ball.reset(screenX, screenY);
+            ball.reset(paddle.getX(), paddle.getY(), paddle.getLength());
 
             int brickWidth = screenX / 8;
             int brickHeight = screenY / 10;
@@ -305,7 +308,7 @@ public class BreakoutGame extends Activity {
 
                 // Draw the bricks
                 // Change the brush color for drawing
-                paint.setColor(Color.argb(255,  249, 129, 0));
+                paint.setColor(Color.argb(255,  166, 21, 186));
 
                 // Draw the bricks if visible
                 for(int i = 0; i < numBricks; i++){

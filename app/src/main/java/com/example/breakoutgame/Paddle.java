@@ -25,6 +25,12 @@ public class Paddle {
     public final int LEFT = 1;
     public final int RIGHT = 2;
 
+    //Hitting sides?
+    private int rightSide;
+    private int leftSide;
+    private boolean hitSideR = false;
+    private boolean hitSideL = false;
+
     // Is the paddle moving and in which direction
     private int paddleMoving = STOPPED;
 
@@ -35,9 +41,11 @@ public class Paddle {
         // 130 pixels wide and 20 pixels high
         length = 130;
         height = 20;
+        leftSide = 0;
+        rightSide = screenX;
 
-        // Start paddle in roughly the sceen centre
-        x = screenX / 2;
+        // Start paddle in roughly the screen centre
+        x = screenX / 2 - length/2;
         y = screenY - 20;
 
         rect = new RectF(x, y, x + length, y + height);
@@ -57,15 +65,37 @@ public class Paddle {
         paddleMoving = state;
     }
 
+    public int getX() {
+        return (int) x;
+    }
+
+    public int getY() {
+        return (int) y;
+    }
+
+    public int getLength() {
+        return (int) length;
+    }
+
     // This update method will be called from update in BreakoutView
     // It determines if the paddle needs to move and changes the coordinates
     // contained in rect if necessary
     public void update(long fps){
-        if(paddleMoving == LEFT){
+        if (rect.right > rightSide - 10)
+        {
+            hitSideR = true;
+        }
+        else hitSideR = false;
+        if (rect.left < leftSide + 10)
+        {
+            hitSideL = true;
+        }
+        else hitSideL = false;
+        if(paddleMoving == LEFT && !hitSideL){
             x = x - paddleSpeed / fps;
         }
 
-        if(paddleMoving == RIGHT){
+        if(paddleMoving == RIGHT && !hitSideR){
             x = x + paddleSpeed / fps;
         }
 
